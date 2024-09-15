@@ -1,0 +1,23 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    outline: 1px solid red;
+}
+
+.cellContainer{
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    height: 50vh;
+    padding: 20px;
+    width: 50vw;
+    gap: 5px;
+}
+
+.cell{
+    width: clamp(20px, 1fr, 100px);
+    height: 100%;
+    background-color: red;
+}
