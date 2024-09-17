@@ -1,35 +1,60 @@
+let game= (function(){
+    
 
-
-
-function Player(player, marker){
-    this.player = player
-    this.marker = marker
-}
-
-let game = (function(){
-    let GameBoard = {
-        gameboard:[]
+    console.log('enter cell number:')
+    
+    let player ={
+        playerOne: {
+            playerName: 'Player 1',
+            playerMarker : 'x'
+        },
+        playerTwo:{
+            playerName: 'Player 2',
+            playerMarker : 'o'
+        }
     }
 
-    //Dom
-    cellContainer = document.querySelector('.cellContainer')
+    let currentPlayer = player.playerOne
 
-    //events
-    cellContainer.addEventListener('click', (e)=>{_cellClick(e)})
-
-    _render()
-
-    function _render(){
-
-        cells = cellContainer.children
-
-        for(let i=0; i< cells.length; i++){
-            cells[i].id= i+1
-            GameBoard.gameboard.push(cells[i])
-            //GameBoard[i] = cells[i]
+    function changePlayer(){
+        if(currentPlayer== player.playerOne){
+            currentPlayer=player.playerTwo
+        }else{
+            currentPlayer= player.playerOne
         }
-        
-        console.log(GameBoard)
+        return currentPlayer
     }
     
+    let gameboard={
+        board: {
+           x:[],
+           o:[]
+        },
+        
+
+        addPlay: function(move){
+            //let currentPlayer = playerController()
+            //console.log(currentPlayer.playerMarker)
+            if(move != this.board.x && move != this.board.o){
+                
+                this.board[currentPlayer.playerMarker].push(move)
+            } else{
+                console.log('already used')
+            }
+            
+            //console.log(move)
+            console.table(this.board)
+            changePlayer()
+        },
+        checkWinner: function(){
+            
+        }
+        
+        
+    }
+
+    
+    
+    
+    return {}
 })()
