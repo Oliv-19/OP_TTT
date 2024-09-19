@@ -27,27 +27,57 @@ let game= (function(){
     
     let gameboard={
         board: {
-           x:[],
-           o:[]
+           x:[1, 2],
+           o:[4,5]
         },
         
 
         addPlay: function(move){
-            //let currentPlayer = playerController()
-            //console.log(currentPlayer.playerMarker)
             if(move != this.board.x && move != this.board.o){
-                
                 this.board[currentPlayer.playerMarker].push(move)
+                this.checkWinner() 
+                changePlayer()
             } else{
                 console.log('already used')
             }
             
             //console.log(move)
             console.table(this.board)
-            changePlayer()
+            
+            
         },
         checkWinner: function(){
+            curPlayerArr=this.board[currentPlayer.playerMarker]
+
+            let winsOP =[
+                [1,2,3],
+                [4,5,6],
+                [7,8,9],
+
+                [1,4,7],
+                [2,5,8],
+                [3,6,9],
+
+                [1,5,9],
+                [7,5,3],
+            ]
             
+            winsOP.forEach((array)=>{
+                let arr=[]
+            
+                curPlayerArr.forEach(element => {
+                    if(array.includes(element)){
+                        arr.push(element)
+                    }
+                });
+
+                if( arr.length == 3){
+                    console.log(currentPlayer.playerName+' WINS')
+                    return true
+                } 
+            })
+            
+
         }
         
         
@@ -55,6 +85,16 @@ let game= (function(){
 
     
     
-    
-    return {}
+    function gameController(){
+        
+        // move.forEach(key => {
+            
+        // });
+
+        
+        //return {}
+    }
+
+    //console.log()
+    return { gameboard}
 })()
