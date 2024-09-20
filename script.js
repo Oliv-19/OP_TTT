@@ -1,7 +1,5 @@
 let game= (function(){
     
-    
-    
     let player ={
         playerOne: {
             playerName: 'Player 1',
@@ -19,10 +17,23 @@ let game= (function(){
             }else{
                 currentPlayer= this.playerOne
             }
+            
             return currentPlayer
-        }
+        },
+        changePlayerName: function(e){
+            e.preventDefault()
+            
+            let formData = new FormData(domManager.form)
+            this.playerOne.playerName= formData.get('player1')
+            this.playerTwo.playerName= formData.get('player2')
+            console.log(this.playerOne.playerName)
+            console.log(this.playerTwo.playerName)
+            domManager.render()
+            
+        },
 
     }
+    
 
     let currentPlayer = player.playerOne
 
@@ -44,10 +55,12 @@ let game= (function(){
         addPlay: function(move){
             if(!this.board.x.includes(move) &&!this.board.o.includes(move)){
                 this.board[currentPlayer.playerMarker].push(move)
+                domManager.render()
+                
                 if(!this.checkWinner()){
                     player.changePlayer()
                 }
-                 
+                
             } else{
                 console.log('already used')
             }
@@ -56,6 +69,8 @@ let game= (function(){
             console.table(this.board)
             console.log(currentPlayer.playerName+ ' turn')
             console.log('enter cell number:')
+            
+
             
         },
         checkWinner: function(){
@@ -88,6 +103,7 @@ let game= (function(){
 
                 if( arr.length == 3){
                     console.log(currentPlayer.playerName+' WINS')
+                    console.log('GAME OVER!')
                     wins = true
                     this.restart()
                     //return true
@@ -97,6 +113,7 @@ let game= (function(){
             if(curPlayerArr.length == player.playerOne.maxMoves){
                 console.log('its a draw')
                 wins = true
+                console.log('GAME OVER!')
                 this.restart()
                 //return
             }
@@ -109,10 +126,38 @@ let game= (function(){
         
     }
 
-    
-    
-    function gameController(){
+    let domManager={
+        head: document.querySelector('.head'),
+        form: document.querySelector('#form'),
+        cellContainer: document.querySelector('.cellContainer'),
         
-    }
-    return {makeMove: function(move){gameboard.addPlay(move)}}
+        listeners:function(){
+            this.form.addEventListener('submit',(e)=>{player.changePlayerName(e)})
+
+        },
+        render: function(){
+            let h3=this.head.children[0]
+            h3.textContent =currentPlayer.playerName+ "'s turn" 
+
+            let arr = gameboard.board[currentPlayer.playerMarker]
+            
+            arr.forEach(cellNum=>{
+                let cell = this.cellContainer.children[cellNum-1]
+                if(currentPlayer.playerMarker== 'x'){
+                    cell.style.backgroundColor ='green'
+                }else{
+                    cell.style.backgroundColor ='blue'
+                }
+                
+            })
+            
+        }
+        
+    } 
+    console.log()
+    domManager.listeners()
+
+
+   
+    return {makeMove: function(move){gameboard.addPlay(move)},}
 })()
