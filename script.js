@@ -26,8 +26,7 @@ let game= (function(){
             let formData = new FormData(domManager.form)
             this.playerOne.playerName= formData.get('player1')
             this.playerTwo.playerName= formData.get('player2')
-            console.log(this.playerOne.playerName)
-            console.log(this.playerTwo.playerName)
+            
             domManager.render()
             
         },
@@ -59,6 +58,7 @@ let game= (function(){
                 
                 if(!this.checkWinner()){
                     player.changePlayer()
+                    domManager.render()
                 }
                 
             } else{
@@ -133,7 +133,12 @@ let game= (function(){
         
         listeners:function(){
             this.form.addEventListener('submit',(e)=>{player.changePlayerName(e)})
-
+            this.cellContainer.addEventListener('click', (e)=>{this.makePlay(e)})
+        },
+        makePlay:function(e){
+            if(e.target.className == 'cell'){
+               gameboard.addPlay(e.target.id)
+            }
         },
         render: function(){
             let h3=this.head.children[0]
@@ -150,14 +155,15 @@ let game= (function(){
                 }
                 
             })
+
+        
             
-        }
+        },
+        
         
     } 
-    console.log()
-    domManager.listeners()
+    
 
-
-   
-    return {makeMove: function(move){gameboard.addPlay(move)},}
+   return domManager.listeners()
+    // return {makeMove: function(move){gameboard.addPlay(move)},}
 })()
