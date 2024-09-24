@@ -18,17 +18,27 @@ let game= (function(){
                 currentPlayer= this.playerOne
             }
             domManager.h3Text=currentPlayer.playerName+ "'s turn" 
+            domManager.render()
             return currentPlayer
         },
         changePlayerName: function(e){
             e.preventDefault()
 
             let formData = new FormData(domManager.form)
-            this.playerOne.playerName= formData.get('player1')
-            this.playerTwo.playerName= formData.get('player2')
+            if(formData.get('player1')== '' ||formData.get('player2') ==''){
+                this.playerOne.playerName="Player 1"
+                this.playerTwo.playerName="Player 2"
+            } else{
+                this.playerOne.playerName= formData.get('player1')
+                this.playerTwo.playerName= formData.get('player2')
+            }
 
+            
+            domManager.h3Text=currentPlayer.playerName+ "'s turn" 
+            
+            domManager.modal.close()
             domManager.render()
-            domManager.areaListener.abort()
+            //domManager.areaListener.abort()
         },
 
     }
@@ -61,10 +71,10 @@ let game= (function(){
 
                     if(!this.checkWinner()){
                         player.changePlayer()
-                        domManager.render()
+                        
                     }else{
                         this.gameOver()
-                        domManager.render()
+                        
                     }
                         
                 } else{
@@ -119,9 +129,10 @@ let game= (function(){
             domManager.h3Text='GAME OVER!'
             
             console.log('GAME OVER!')
+            
             domManager.areaListener.abort()
 
-
+            domManager.render()
         }
 
 
@@ -129,6 +140,7 @@ let game= (function(){
     }
 
     let domManager={
+        modal: document.querySelector('dialog'),
         head: document.querySelector('.head'),
         h3Text: '',
         winnerText: '',
@@ -136,11 +148,18 @@ let game= (function(){
         cellContainer: document.querySelector('.cellContainer'),
         areaListener : new AbortController(),
         listeners:function(){
+            this.modal.showModal()
             this.form.addEventListener('submit',(e)=>{player.changePlayerName(e)}, {signal: this.areaListener.signal})
             this.cellContainer.addEventListener('click', (e)=>{gameboard.addPlay(e)}, {signal: this.areaListener.signal})
         },
 
         render: function(){
+            let X = this.form.children[0]
+            X = X.children[0]
+            let O = this.form.children[2]
+            O = O.children[0]
+            
+            
             let h3=this.head.children[0]
             h3.textContent = this.h3Text
 
@@ -152,9 +171,13 @@ let game= (function(){
             arr.forEach(cellNum=>{
                 let cell = this.cellContainer.children[cellNum-1]
                 if(currentPlayer.playerMarker== 'x'){
-                    cell.style.backgroundColor ='green'
+                    cell.textContent= 'X'
+                    cell.classList+= ' icon'
+                    // cell.style.backgroundColor ='green'
                 }else{
-                    cell.style.backgroundColor ='blue'
+                    cell.textContent= 'O'
+                    cell.classList+= ' icon'
+                    // cell.style.backgroundColor ='blue'
                 }
 
             })

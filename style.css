@@ -2,26 +2,120 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    outline: 1px solid red;
+}
+body{
+    height: 100vh;
+    font-family: "VT323", monospace;
+    color: #a66fad;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+dialog{
+    border: none;
+    margin: auto;
+    height: 50vh;
+    width: 40vw;
+    padding: 30px;
+    border-radius: 20px;
+    border-left: 10px solid #7F4287;
+}
+form{
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    align-items: center;
+    justify-items: center;
 }
 
+
+.icon, .cell{
+    font-family: 'Permanent Marker';
+    color: #7F4287;
+    width: 201px;
+    height: 116px;
+    font-size: 5em;
+    text-align: center;
+    cursor: default;
+}
+label{
+    text-align: center;
+    height: 84.66px;
+    width: 201px;
+    grid-row: 1/2;
+    color: #a66fad;
+}
+
+
+input{
+    border: none;
+    width: 80%;
+    height: 30px;
+    padding: 3px 5px;
+    border-radius: 15px;
+    background-color: #F5E2F4;
+    color: #67306e;
+    font-weight: 600;
+    font-size: 1em;
+    text-align: center;
+    grid-row: 2/3;
+}
+input:focus{
+    border: 1px solid #7F4287;
+    outline: none;
+}
+input::placeholder{
+    color: #ae96b1;
+}
+#save{
+    grid-column: 1/3;
+    grid-row: 3/4;
+    border: 0;
+    cursor: pointer;
+    font-weight: 600;
+    color: #fff;
+    font-size: 17px;
+    height: 40px;
+    padding: 8px 40px;
+    border-radius: 50px;
+    background-image: linear-gradient(90deg,#f1caef,#7F4287);
+}
+#save:focus{
+    outline: none;
+    box-shadow: 5px 6px 9px 0px #320c378a;
+}
+
+.head{
+    margin: auto;
+    padding: auto;
+    width: 20%;
+    height: 10%;
+    border-radius: 15px;
+    background-color: #F5E2F4;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    font-size: 1.3em;
+}
+
+
 .cellContainer{
+    background-color: #7F4287;
     margin: auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    height: 50vh;
-    padding: 20px;
-    width: 50vw;
+    height: 66%;
+    width: 50%;
     gap: 5px;
+    border: 20px solid #F5E2F4;
+    justify-content: center;
 }
 
 .cell{
-    width: clamp(20px, 1fr, 100px);
+    width: 100%;
     height: 100%;
-    background-color: red;
-}
-.head{
-    height: 10vh;
-    text-align: center;
+    background-color: #F5E2F4;
 }
