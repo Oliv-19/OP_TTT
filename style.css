@@ -13,6 +13,7 @@ body{
     margin: auto;
     display: flex;
     flex-direction: column; 
+    overflow: hidden;
     
 }
 dialog{
@@ -36,7 +37,7 @@ form{
 
 
 .icon, .cell{
-    font-family: 'Permanent Marker';
+    font-family: 'Permanent Marker', "VT323", monospace;
     color: #7F4287;
     width: 201px;
     height: 116px;
@@ -144,7 +145,7 @@ input::placeholder{
         grid-template-rows: repeat(3, 1fr);
     }
     .cell{
-        height: 97.95px;
+        height: 100%;
         width: 100%;
         font-size: 3.5em;
     }
@@ -185,7 +186,8 @@ input::placeholder{
         width: 90%;
     }
     .cell{
-        height: 78.84px;
+        height: 100%;
+        /* height: 78.84px; */
         width: 100%;
         font-size: 3.5em;
     }
